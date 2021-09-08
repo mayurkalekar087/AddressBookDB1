@@ -50,6 +50,44 @@ namespace AddressBookADO
                 Console.WriteLine(e.Message);
             }
         }
-      
+        public bool AddDetails(AddressBookModel model)
+        {
+            try
+            {
+                using (connection)
+                {
+                    SqlCommand cmnd = new SqlCommand("SpAddDetails", connection);
+                    cmnd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmnd.Parameters.AddWithValue("@FirstName", model.FirstName);
+                    cmnd.Parameters.AddWithValue("@LastName", model.LastName);
+                    cmnd.Parameters.AddWithValue("@Address", model.Address);
+                    cmnd.Parameters.AddWithValue("@City", model.City);
+                    cmnd.Parameters.AddWithValue("@State", model.State);
+                    cmnd.Parameters.AddWithValue("@Zip", model.Zip);
+                    cmnd.Parameters.AddWithValue("@PhoneNumber", model.PhoneNumber);
+                    cmnd.Parameters.AddWithValue("@Email", model.Email);
+                    cmnd.Parameters.AddWithValue("@Type", model.Type);
+                    cmnd.Parameters.AddWithValue("@AddressBookName", model.AddressBookName);
+                    connection.Open();
+                    var result = cmnd.ExecuteNonQuery();
+                    connection.Close();
+                    if (result != 0)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return false;
+        }
     }
 }
