@@ -116,5 +116,28 @@ namespace AddressBookADO
                 Console.WriteLine(e.Message);
             }
         }
+        public void Remove()
+        {
+            try
+            {
+                using (connection)
+                {
+                    string query = $"delete from contacts where Firstname = 'Sham'";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    connection.Open();
+                    var result = command.ExecuteNonQuery();
+                    connection.Close();
+                    if (result != 0)
+                    {
+                        Console.WriteLine("Contact Deleted");
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+        }
+
     }
 }
