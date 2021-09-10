@@ -89,5 +89,32 @@ namespace AddressBookADO
             }
             return false;
         }
+        public void UpdateDetails()
+        {
+
+            try
+            {
+
+                using (connection)
+                {
+                    string query = "update contacts set City='Memphis' where Firstname='David'";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    connection.Open();
+                    var result = command.ExecuteNonQuery();
+                    if (result != 0)
+                    {
+                        Console.WriteLine("City Updated");
+                    }
+                    else
+                    {
+                        Console.WriteLine("City not Updated");
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
     }
 }
