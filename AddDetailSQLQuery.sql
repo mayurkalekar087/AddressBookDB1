@@ -1,3 +1,7 @@
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 create procedure [dbo].[SpAddDetails]
 (
 @FirstName varchar(100),
@@ -14,9 +18,14 @@ create procedure [dbo].[SpAddDetails]
 as
 begin
 insert into AddressBook values
-(
-@FirstName,@LastName,@Address,@City,@State,@Zip,@PhoneNumber,@Email,@Type,@AddressBookName
-)
+(@FirstName,@LastName,@Address,@City,@State,@Zip,@PhoneNumber,@Email,@Type,@AddressBookName)
+
+update AddressBook set City='Memphis' where Firstname='David'
+
+delete from AddressBook where Firstname = 'mayur'
+
+select firstname from AddressBook where city = 'Memphis' OR state = 'Ohio'
 end
 GO
 SELECT * FROM AddressBook
+

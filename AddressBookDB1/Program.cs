@@ -2,7 +2,7 @@
 
 namespace AddressBookADO
 {
-    class Program
+   public class Program
     {
         static void Main(string[] args)
         {
@@ -57,6 +57,9 @@ namespace AddressBookADO
                     Console.WriteLine("Invalid Input");
                     break;
             }
+            repo.UpdateDetails();
+            repo.Remove();
+            repo.RetrievePersonByCityOrState();
         }
     }
 }

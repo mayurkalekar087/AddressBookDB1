@@ -97,7 +97,8 @@ namespace AddressBookADO
 
                 using (connection)
                 {
-                    string query = "update contacts set City='Memphis' where Firstname='David'";
+                    SqlCommand cmnd = new SqlCommand("SpAddDetails", connection);
+                    string query = "update AddressBook set City='Memphis' where Firstname='David'";
                     SqlCommand command = new SqlCommand(query, connection);
                     connection.Open();
                     var result = command.ExecuteNonQuery();
@@ -122,7 +123,7 @@ namespace AddressBookADO
             {
                 using (connection)
                 {
-                    string query = $"delete from contacts where Firstname = 'Sham'";
+                    string query = $"delete from AddressBook where Firstname = 'Tyler'";
                     SqlCommand command = new SqlCommand(query, connection);
                     connection.Open();
                     var result = command.ExecuteNonQuery();
@@ -138,6 +139,27 @@ namespace AddressBookADO
                 Console.WriteLine(e);
             }
         }
-
+        public void RetrievePersonByCityOrState()
+        {
+            try
+            {
+                using (connection)
+                {
+                    string query = $"select firstname from AddressBook where city = 'Memphis' OR state = 'Ohio'";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    connection.Open();
+                    var result = command.ExecuteNonQuery();
+                    connection.Close();
+                    if (result != 0)
+                    {
+                        Console.WriteLine("Retrieved Person Successfully");
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+        }
     }
 }
